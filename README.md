@@ -74,8 +74,18 @@ Aplikasi ini diuji dengan metode **usability testing** berdasarkan 4 aspek utama
 
 ---
 
-## 🚀 Cara Menjalankan
+## 📋 Persyaratan Sistem
 
+| Komponen | Spesifikasi Minimal |
+|----------|---------------------|
+| Sistem Operasi | Android 7.0 (Nougat) ke atas |
+| RAM | 4 GB |
+| Penyimpanan | 100 MB ruang kosong |
+| Konektivitas | Bluetooth 4.0+ |
+| Sensor | GPS, Kamera |
+
+## 🚀 Panduan Instalasi
+### Frontend
 1. Clone repositori ini:
    ```bash
    git clone https://github.com/RiniHSD/AIRIS.git
@@ -100,6 +110,21 @@ Aplikasi ini diuji dengan metode **usability testing** berdasarkan 4 aspek utama
    npx react-native run-android
 
 6. Pastikan GNSS Low Cost menyala dan Bluetooth diaktifkan di perangkat.
+
+### Backend
+1. Masuk ke folder backend:
+   ```bash
+   cd ../backend
+
+2. Install semua dependensi:
+   ```bash
+   npm install
+
+3. Buat database PostgreSQL dan konfigurasi di .env
+
+4. Jalankan server
+   ```bash
+   nmp start
 
 
 ## 👩‍💻 Developer
