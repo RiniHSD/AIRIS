@@ -37,7 +37,7 @@
 | Komponen | Spesifikasi Minimal |
 |----------|---------------------|
 | Sistem Operasi | Android 7.0 (Nougat) ke atas |
-| RAM | 4 GB |
+| RAM | 2 GB |
 | Penyimpanan | 100 MB ruang kosong |
 | Konektivitas | Bluetooth 4.0+ |
 | Sensor | GPS, Kamera |
