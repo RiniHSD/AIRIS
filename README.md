@@ -78,8 +78,8 @@ Aplikasi ini diuji dengan metode **usability testing** berdasarkan 4 aspek utama
 
 1. Clone repositori ini:
    ```bash
-   git clone https://github.com/RiniHSD/Airis-App.git
-   cd Airis-App
+   git clone https://github.com/RiniHSD/AIRIS.git
+   cd AIRIS/frontend
 
 2. Install semua dependensi:
    ```bash
@@ -165,7 +165,7 @@ Aplikasi ini diuji dengan metode **usability testing** berdasarkan 4 aspek utama
 
 ### Halaman Pengguna
 <p align="center">
-  <img src="ss/20.jpg" width="200"/>
-  <img src="ss/23.jpg" width="200"/>
-  <img src="ss/24.jpg" width="200"/>
+  <img src="frontend/ss/20.jpg" width="200"/>
+  <img src="frontend/ss/23.jpg" width="200"/>
+  <img src="frontend/ss/24.jpg" width="200"/>
 </p>
