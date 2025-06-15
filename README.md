@@ -28,49 +28,7 @@
 | UI/UX Design | Figma |
 | Sistem Operasi | Android (min. versi 7.0) |
 
----
 
-## 🧪 Uji Kelayakan
-
-Aplikasi ini diuji dengan metode **usability testing** berdasarkan 4 aspek utama:
-
-- 📚 Learnability
-- 🔄 Flexibility
-- ✅ Effectiveness
-- 😊 Attitude
-
----
-
-## 🌍 Lokasi Studi Kasus
-
-> **Saluran Irigasi Van Der Wijck**, Kabupaten Sleman, DI Yogyakarta  
-> Dikelola oleh BBWS Serayu Opak dan DPUPESDM DIY
-
----
-
-## 🗃️ Struktur Database
-
-### Tabel `bangunan_irigasi`
-
-| Field | Tipe | Deskripsi |
-|-------|------|-----------|
-| gid | Integer (PK) | ID bangunan |
-| nama | Varchar(50) | Nama/kode bangunan |
-| jenis_bgn | Varchar(50) | Jenis bangunan |
-| koor | Geometry(Point, 4326) | Lokasi spasial |
-| tgl_survei | Date | Tanggal pemetaan |
-| kondisi | Varchar(50) | Kondisi fisik |
-| luas_oncoran | Numeric(10,2) | Luas sawah terairi |
-| ... | ... | Lainnya |
-
-### Tabel `saluran_irigasi`
-
-| Field | Tipe | Deskripsi |
-|-------|------|-----------|
-| id | Integer (PK) | ID saluran |
-| nama_saluran | Varchar(50) | Nama saluran |
-| jenis_saluran | Varchar(50) | Primer/Sekunder/Tersier |
-| id_parent | Integer (FK) | Relasi saluran induk |
 
 ---
 
