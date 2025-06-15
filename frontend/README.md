@@ -116,56 +116,54 @@ Aplikasi ini diuji dengan metode **usability testing** berdasarkan 4 aspek utama
 ## Tangkapan Layar Aplikasi AIRIS
 ### Splashscreen, Login, dan Register
 <p align="center">
-  <img src="frontend/ss/1.jpg" width="200"/>
-  <img src="frontend/ss/2.jpg" width="200"/>
-  <img src="frontend/ss/3.jpg" width="200"/>
+  <img src="ss/1.jpg" width="200"/>
+  <img src="ss/2.jpg" width="200"/>
+  <img src="ss/3.jpg" width="200"/>
 </p>
 
 ### Koneksi GNSS
 <p>Metode Pengukuran yaitu GNSS Geodetik dan Posisi Internal Hp</p>
 <p align="center">
-  <img src="frontend/ss/4.jpg" width="200"/>
-  <img src="frontend/ss/5.jpg" width="200"/>
-  <img src="frontend/ss/6.jpg" width="200"/>
-  <img src="frontend/ss/22.jpg" width="200"/>
+  <img src="ss/4.jpg" width="200"/>
+  <img src="ss/5.jpg" width="200"/>
+  <img src="ss/6.jpg" width="200"/>
+  <img src="ss/22.jpg" width="200"/>
 </p>
 
 ### Halaman Peta
 <p>Lokasi titik bangunan irigasi hasil pengukuran</p>
 <p>Tampilan pop-up titik, pop-up saluran irigasi, legenda, dan berbagai basemap</p>
 <p align="center">
-  <img src="frontend/ss/21.jpg" width="200"/>
-  <img src="frontend/ss/8.jpg" width="200"/>
-  <img src="frontend/ss/9.jpg" width="200"/>
-  <img src="frontend/ss/10.jpg" width="200"/>
+  <img src="ss/21.jpg" width="200"/>
+  <img src="ss/8.jpg" width="200"/>
+  <img src="ss/9.jpg" width="200"/>
+  <img src="ss/10.jpg" width="200"/>
 </p>
 
 ### Halaman Survey
 <p>Fitur menambahkan data titik bangunan irigasi</p>
 <p align="center">
-  <img src="frontend/ss/11.jpg" width="200"/>
-  <img src="frontend/ss/12.jpg" width="200"/>
-  <img src="frontend/ss/13.jpg" width="200"/>
+  <img src="ss/11.jpg" width="200"/>
+  <img src="ss/12.jpg" width="200"/>
+  <img src="ss/13.jpg" width="200"/>
 </p>
 
 ### Halaman List
 <p>Daftar bangunan irigasi beserta fitur lihat, edit, dan hapus</p>
 <p align="center">
-  <img src="frontend/ss/14.jpg" width="200"/>
-  <img src="frontend/ss/19.jpg" width="200"/>
+  <img src="ss/14.jpg" width="200"/>
+  <img src="ss/19.jpg" width="200"/>
 </p>
 
 <p>Fitur lihat titik di peta dengan validasi topology rules</p>
 <p align="center">
-  <img src="frontend/ss/15.jpg" width="200"/>
-  <img src="frontend/ss/16.jpg" width="200"/>
-  <img src="frontend/ss/17.jpg" width="200"/>
-  <img src="frontend/ss/18.jpg" width="200"/>
+  <img src="ss/15.jpg" width="200"/>
+  <img src="ss/16.jpg" width="200"/>
+  <img src="ss/17.jpg" width="200"/>
+  <img src="ss/18.jpg" width="200"/>
 </p>
 
 ### Halaman Pengguna
 <p align="center">
   <img src="ss/20.jpg" width="200"/>
-  <img src="ss/23.jpg" width="200"/>
-  <img src="ss/24.jpg" width="200"/>
 </p>
