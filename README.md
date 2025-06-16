@@ -126,7 +126,6 @@ Aplikasi ini diuji dengan metode **usability testing** berdasarkan 4 aspek utama
    ```bash
    nmp start
 
-
 ## 👩‍💻 Developer
 - Rini Husadiyah
 - Program Studi Sarjana Terapan Sistem Informasi Geografis
