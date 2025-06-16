@@ -10,7 +10,7 @@
 - 🗺️ Peta interaktif jaringan irigasi (primer, sekunder, tersier)
 - 📝 Form survei digital untuk mencatat atribut bangunan irigasi
 - 📷 Dokumentasi foto untuk setiap titik bangunan
-- 🔄 Fitur tambah, lihat, dan edit data secara langsung dari lapangan
+- 🔄 Fitur create, read, update & delete (CRUD) data secara langsung dari lapangan
 - 📡 Dukungan pengambilan data koordinat RTK dengan akurasi sentimeter
 
 ---
