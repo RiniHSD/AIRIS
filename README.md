@@ -1,4 +1,4 @@
-# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS)
+p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS)
 
 **AIRIS** adalah aplikasi **Mobile GIS** berbasis **React Native** yang dirancang untuk memetakan jaringan irigasi secara real-time dan akurat. Aplikasi ini terintegrasi dengan perangkat **GNSS Low Cost** dan dikembangkan sebagai bagian dari Proyek Akhir Program Studi Sarjana Terapan Sistem Informasi Geografis Universitas Gadjah Mada.
 
@@ -27,7 +27,6 @@
 | API Test | Postman |
 | UI/UX Design | Figma |
 | Sistem Operasi | Android (min. versi 7.0) |
-
 
 
 ---
@@ -84,12 +83,12 @@
    ```bash
    nmp start
 
-## 👩‍💻 Developer
-- Rini Husadiyah
-- Program Studi Sarjana Terapan Sistem Informasi Geografis
-- Departemen Teknologi Kebumian
-- Sekolah Vokasi
-- Universitas Gadjah Mada
+## 👷 Pemetaan Bangunan Irigasi
+<p align="center">
+  <img src="frontend/ss/Bangunan Ukur.jpg" width="200"/>
+  <img src="frontend/ss/Bangunan Bagi.jpg" width="200"/>
+  <img src="frontend/ss/Bangunan Sadap.jpg" width="200"/>
+</p>
 
 
 ## Tangkapan Layar Aplikasi AIRIS
