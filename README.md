@@ -1,4 +1,4 @@
-p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS)
+# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS)
 
 **AIRIS** adalah aplikasi **Mobile GIS** berbasis **React Native** yang dirancang untuk memetakan jaringan irigasi secara real-time dan akurat. Aplikasi ini terintegrasi dengan perangkat **GNSS Low Cost** dan dikembangkan sebagai bagian dari Proyek Akhir Program Studi Sarjana Terapan Sistem Informasi Geografis Universitas Gadjah Mada.
 
@@ -30,6 +30,7 @@ p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis 
 
 
 ---
+
 
 ## 📋 Persyaratan Sistem
 
@@ -84,6 +85,7 @@ p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis 
    nmp start
 
 ## 👷 Pemetaan Bangunan Irigasi
+<p> Foto Pengukuran Lapangan </p>
 <p align="center">
   <img src="frontend/ss/Bangunan Ukur.jpg" width="200"/>
   <img src="frontend/ss/Bangunan Bagi.jpg" width="200"/>
@@ -99,6 +101,7 @@ p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis 
   <img src="frontend/ss/3.jpg" width="200"/>
 </p>
 
+
 ### Koneksi GNSS
 <p>Metode Pengukuran yaitu GNSS Geodetik dan Posisi Internal Hp</p>
 <p align="center">
@@ -107,6 +110,7 @@ p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis 
   <img src="frontend/ss/6.jpg" width="200"/>
   <img src="frontend/ss/22.jpg" width="200"/>
 </p>
+
 
 ### Halaman Peta
 <p>Lokasi titik bangunan irigasi hasil pengukuran</p>
@@ -118,6 +122,7 @@ p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis 
   <img src="frontend/ss/10.jpg" width="200"/>
 </p>
 
+
 ### Halaman Survey
 <p>Fitur menambahkan data titik bangunan irigasi</p>
 <p align="center">
@@ -126,12 +131,14 @@ p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis 
   <img src="frontend/ss/13.jpg" width="200"/>
 </p>
 
+
 ### Halaman List
 <p>Daftar bangunan irigasi beserta fitur lihat, edit, dan hapus</p>
 <p align="center">
   <img src="frontend/ss/14.jpg" width="200"/>
   <img src="frontend/ss/19.jpg" width="200"/>
 </p>
+
 
 <p>Fitur lihat titik di peta dengan validasi topology rules</p>
 <p align="center">
@@ -141,9 +148,12 @@ p# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis 
   <img src="frontend/ss/18.jpg" width="200"/>
 </p>
 
+
 ### Halaman Pengguna
 <p align="center">
   <img src="frontend/ss/20.jpg" width="200"/>
   <img src="frontend/ss/23.jpg" width="200"/>
   <img src="frontend/ss/24.jpg" width="200"/>
 </p>
+
+
