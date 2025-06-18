@@ -6,12 +6,13 @@
 
 ## 📌 Fitur Utama
 
-- 🔗 Koneksi Bluetooth dengan perangkat GNSS Low Cost
+- 🔗 Integrasi dengan perangkat GNSS Geodetik Low Cost
 - 🗺️ Peta interaktif jaringan irigasi (primer, sekunder, tersier)
 - 📝 Form survei digital untuk mencatat atribut bangunan irigasi
 - 📷 Dokumentasi foto untuk setiap titik bangunan
 - 🔄 Fitur create, read, update & delete (CRUD) data secara langsung dari lapangan
-- 📡 Dukungan pengambilan data koordinat RTK dengan akurasi sentimeter
+- 📡 Dukungan pengambilan data koordinat dengan akurasi sentimeter
+- 📏 Sistem koreksi posisi GNSS secara Real-Time dengan metode RTK NTRIP
 
 ---
 
@@ -85,7 +86,7 @@
    nmp start
 
 ## 👷 Pemetaan Bangunan Irigasi
-<p> Foto Pengukuran Lapangan </p>
+<p> Foto Pengukuran Lapangan Menggunakan GNSS Geodetik</p>
 <p align="center">
   <img src="frontend/ss/Bangunan Ukur.jpg" width="200"/>
   <img src="frontend/ss/Bangunan Bagi.jpg" width="200"/>
