@@ -18,24 +18,24 @@ import Titiklokasi from './component/mapBangunan';
 
 const ICONS = {
     GPS: {
-        active: require('./assets/icons/gps_active.png'),
-        inactive: require('./assets/icons/gps_inactive.png'),
+      active: require('./assets/icons/gps_active.png'),
+      inactive: require('./assets/icons/gps_inactive.png'),
     },
     Map: {
-        active: require('./assets/icons/map_active.png'),
-        inactive: require('./assets/icons/map_inactive.png'),
+      active: require('./assets/icons/map_active.png'),
+      inactive: require('./assets/icons/map_inactive.png'),
     },
     Survey: {
-    active: require('./assets/icons/survey_active.png'),
-    inactive: require('./assets/icons/survey_inactive.png'),
+      active: require('./assets/icons/survey_active.png'),
+      inactive: require('./assets/icons/survey_inactive.png'),
     },
     List: {
-    active: require('./assets/icons/list_active.png'),
-    inactive: require('./assets/icons/list_inactive.png'),
+      active: require('./assets/icons/list_active.png'),
+      inactive: require('./assets/icons/list_inactive.png'),
     },
     User: {
-    active: require('./assets/icons/account_active.png'),
-    inactive: require('./assets/icons/account_inactive.png'),
+      active: require('./assets/icons/account_active.png'),
+      inactive: require('./assets/icons/account_inactive.png'),
     },
 };
 
@@ -76,8 +76,8 @@ function MainTabs({ navigation, onLogout }) {
         })}
       >
         <Tab.Screen name="GPS" component={GPSStack} />
-        <Tab.Screen name="Map" component={MapStack} />
         <Tab.Screen name="Survey" component={SurveyStack} />
+        <Tab.Screen name="Map" component={MapStack} />
         <Tab.Screen name="List" component={ListStack} />
         <Tab.Screen name="User">
           {(props) => <UserStack {...props} onLogout={onLogout} />}

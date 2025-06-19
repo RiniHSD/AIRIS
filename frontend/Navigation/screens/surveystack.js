@@ -1,6 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MetodeSurvey from './metodesurvey';
 import SurveyPage from './survey';
+import SurveySaluran from './surveysaluran';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +17,9 @@ export default function SurveyStack() {
       },
       headerTitleAlign: 'center',
       }}>
-      <Stack.Screen name="SurveyPage" component={SurveyPage} options={{ title: 'ADD DATA' }} />
+      <Stack.Screen name="MetodeSurvey" component={MetodeSurvey} options={{ title: 'SURVEY' }} />
+      <Stack.Screen name="SurveyPage" component={SurveyPage} options={{ title: 'SURVEY BANGUNAN' }} />
+      <Stack.Screen name="SurveySaluran" component={SurveySaluran} options={{ title: 'SURVEY SALURAN' }} />
     </Stack.Navigator>
   );
 }
