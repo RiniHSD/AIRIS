@@ -27,6 +27,7 @@ const SurveySaluran = () => {
   const [endTime, setEndTime] = useState(null);
   const [distance, setDistance] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(null);
+  const [lastRecordedPosition, setLastRecordedPosition] = useState(null);
   
   const [duration, setDuration] = useState('00:00:00');
   const [recordingStatus, setRecordingStatus] = useState('Belum mulai');
@@ -53,36 +54,78 @@ const SurveySaluran = () => {
   useEffect(() => {
     if (streamDataGNGGA && isRecording && mapLoaded) {
       const coords = CoordinateConverter(streamDataGNGGA);
+      
       if (coords && coords.latitude && coords.longitude) {
         const newPoint = {
-          lat: coords.latitude,
-          lng: coords.longitude,
+          lat: parseFloat(coords.latitude),
+          lng: parseFloat(coords.longitude),
           timestamp: new Date(),
         };
         
         setCurrentPosition(newPoint);
         
-        // Hitung jarak jika ada titik sebelumnya
-        if (trackPoints.length > 0) {
-          const lastPoint = trackPoints[trackPoints.length - 1];
-          const newDistance = calculateDistance(
-            lastPoint.lat,
-            lastPoint.lng,
-            newPoint.lat,
-            newPoint.lng
-          );
-          setDistance(prev => prev + newDistance);
+        // Cek apakah sudah 5 detik sejak perekaman terakhir
+        const now = new Date().getTime();
+        const shouldRecord = !lastRecordedPosition || 
+                            (now - lastRecordedPosition.timestamp.getTime()) >= 5000;
+        
+        if (shouldRecord) {
+          // Hitung jarak jika ada titik sebelumnya
+          if (lastRecordedPosition) {
+            const newDistance = calculateDistance(
+              lastRecordedPosition.lat,
+              lastRecordedPosition.lng,
+              newPoint.lat,
+              newPoint.lng
+            );
+            setDistance(prev => prev + newDistance);
+          }
+          
+          // Tambahkan titik baru
+          const updatedPoints = [...trackPoints, newPoint];
+          setTrackPoints(updatedPoints);
+          
+          // Kirim titik ke WebView
+          if (webViewRef.current) {
+            console.log('Sending point to WebView:', newPoint);
+            webViewRef.current.injectJavaScript(`
+              try {
+                const point = ${JSON.stringify(newPoint)};
+                points.push([point.lat, point.lng]);
+                polyline.setLatLngs(points);
+                map.panTo([point.lat, point.lng]);
+                
+                if (currentMarker) {
+                  map.removeLayer(currentMarker);
+                }
+                currentMarker = L.marker([point.lat, point.lng], {
+                  icon: L.divIcon({
+                    html: '<div style="background-color:green;width:16px;height:16px;border-radius:50%;border:3px solid white;"></div>',
+                    className: '',
+                    iconSize: [22, 22]
+                  })
+                }).addTo(map);
+                
+                if (points.length === 1) {
+                  if (startMarker) map.removeLayer(startMarker);
+                  startMarker = L.marker([point.lat, point.lng], {
+                    icon: L.divIcon({
+                      html: '<div style="background-color:blue;width:16px;height:16px;border-radius:50%;border:3px solid white;"></div>',
+                      className: '',
+                      iconSize: [12, 12]
+                    })
+                  }).addTo(map);
+                  startMarker.bindPopup('Titik Awal').openPopup();
+                }
+              } catch (error) {
+                window.ReactNativeWebView.postMessage('Error: ' + error.message);
+              }
+            `);
+          }
+          
+          // Simpan posisi terakhir yang direkam
+          setLastRecordedPosition(newPoint);
         }
-        
-        // Tambahkan titik baru
-        const updatedPoints = [...trackPoints, newPoint];
-        setTrackPoints(updatedPoints);
-        
-        // Kirim titik ke WebView
-        webViewRef.current.postMessage(JSON.stringify({
-          type: 'ADD_POINT',
-          point: newPoint
-        }));
       }
     }
   }, [streamDataGNGGA, isRecording, mapLoaded]);
@@ -108,6 +151,7 @@ const SurveySaluran = () => {
     setEndTime(null);
     setDistance(0);
     setTrackPoints([]);
+    setLastRecordedPosition(null);
     setRecordingStatus('Sedang merekam...');
     
     // Kirim perintah reset ke WebView
@@ -130,6 +174,9 @@ const SurveySaluran = () => {
       return;
     }
 
+    // Pastikan koordinat disimpan dalam format yang benar
+    const coordinates = trackPoints.map(point => [point.lng, point.lat]);
+    
     const geojson = {
       type: 'FeatureCollection',
       features: [
@@ -137,14 +184,14 @@ const SurveySaluran = () => {
           type: 'Feature',
           properties: {
             start_time: startTime.toISOString(),
-            end_time: endTime.toISOString(),
+            end_time: endTime ? endTime.toISOString() : new Date().toISOString(),
             distance: distance,
             duration: duration,
             point_count: trackPoints.length
           },
           geometry: {
             type: 'LineString',
-            coordinates: trackPoints.map(point => [point.lng, point.lat])
+            coordinates: coordinates
           }
         }
       ]
@@ -178,7 +225,7 @@ const SurveySaluran = () => {
           <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
           <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
           <style>
-            body, html { margin:10; padding:10; height:100%; }
+            body, html { margin:0; padding:0; height:100%; }
             #map { height:100%; }
           </style>
         </head>
@@ -201,7 +248,12 @@ const SurveySaluran = () => {
               }).addTo(map);
               
               // Initialize polyline
-              polyline = L.polyline([], { color: 'red', weight: 4 }).addTo(map);
+              polyline = L.polyline([], { 
+                color: '#FF0000', 
+                weight: 6,
+                opacity: 0.8,
+                lineJoin: 'round'
+              }).addTo(map);
               
               // Send message to React Native that map is ready
               window.ReactNativeWebView.postMessage(JSON.stringify({ type: 'MAP_READY' }));
@@ -209,50 +261,61 @@ const SurveySaluran = () => {
             
             // Listen for messages from React Native
             window.addEventListener('message', function(event) {
-              const data = JSON.parse(event.data);
-              
-              if (data.type === 'ADD_POINT') {
-                const point = data.point;
-                points.push([point.lat, point.lng]);
-                polyline.setLatLngs(points);
-                map.panTo([point.lat, point.lng]);
+              try {
+                const data = JSON.parse(event.data);
                 
-                // Update current position marker
-                if (currentMarker) {
-                  map.removeLayer(currentMarker);
-                }
-                currentMarker = L.marker([point.lat, point.lng], {
-                  icon: L.divIcon({
-                    html: '<div style="background-color:green;width:12px;height:12px;border-radius:50%;border:2px solid white;"></div>',
-                    className: '',
-                    iconSize: [16, 16]
-                  })
-                }).addTo(map);
-                
-                // Add start marker if this is the first point
-                if (points.length === 1) {
-                  startMarker = L.marker([point.lat, point.lng], {
+                if (data.type === 'ADD_POINT') {
+                  const point = data.point;
+                  
+                  // Tambahkan titik ke array
+                  points.push([point.lat, point.lng]);
+                  
+                  // Update polyline
+                  polyline.setLatLngs(points);
+                  
+                  // Update map view
+                  map.panTo([point.lat, point.lng]);
+                  
+                  // Update current position marker
+                  if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                  }
+                  currentMarker = L.marker([point.lat, point.lng], {
                     icon: L.divIcon({
-                      html: '<div style="background-color:blue;width:12px;height:12px;border-radius:50%;border:2px solid white;"></div>',
+                      html: '<div style="background-color:green;width:16px;height:16px;border-radius:50%;border:3px solid white;"></div>',
                       className: '',
-                      iconSize: [16, 16]
+                      iconSize: [22, 22]
                     })
                   }).addTo(map);
-                  startMarker.bindPopup('Titik Awal').openPopup();
+                  
+                  // Add start marker if this is the first point
+                  if (points.length === 1) {
+                    if (startMarker) map.removeLayer(startMarker);
+                    startMarker = L.marker([point.lat, point.lng], {
+                      icon: L.divIcon({
+                        html: '<div style="background-color:blue;width:16px;height:16px;border-radius:50%;border:3px solid white;"></div>',
+                        className: '',
+                        iconSize: [22, 22]
+                      })
+                    }).addTo(map);
+                    startMarker.bindPopup('Titik Awal').openPopup();
+                  }
                 }
-              }
-              
-              if (data.type === 'RESET') {
-                points = [];
-                polyline.setLatLngs(points);
-                if (startMarker) {
-                  map.removeLayer(startMarker);
-                  startMarker = null;
+                
+                if (data.type === 'RESET') {
+                  points = [];
+                  polyline.setLatLngs(points);
+                  if (startMarker) {
+                    map.removeLayer(startMarker);
+                    startMarker = null;
+                  }
+                  if (currentMarker) {
+                    map.removeLayer(currentMarker);
+                    currentMarker = null;
+                  }
                 }
-                if (currentMarker) {
-                  map.removeLayer(currentMarker);
-                  currentMarker = null;
-                }
+              } catch (error) {
+                console.error('Error processing message:', error);
               }
             });
             
@@ -276,11 +339,19 @@ const SurveySaluran = () => {
           source={{ html: generateMapHTML() }}
           style={styles.webview}
           onMessage={(event) => {
-            const data = JSON.parse(event.nativeEvent.data);
-            if (data.type === 'MAP_READY') {
-              setMapLoaded(true);
+            try {
+              const data = JSON.parse(event.nativeEvent.data);
+              if (data.type === 'MAP_READY') {
+                setMapLoaded(true);
+              }
+            } catch (error) {
+              console.error('Error parsing WebView message:', error);
             }
           }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          startInLoadingState={true}
+          renderLoading={() => <ActivityIndicator size="large" color="#0000ff" />}
         />
       </View>
       
@@ -340,6 +411,11 @@ const SurveySaluran = () => {
             <Text>Jumlah Titik:</Text>
             <Text style={styles.infoValue}>{trackPoints.length}</Text>
           </View>
+          
+          <View style={styles.infoRow}>
+            <Text>Interval Rekam:</Text>
+            <Text style={styles.infoValue}>5 detik</Text>
+          </View>
         </View>
         
         {/* Padding untuk menghindari tab navigasi */}
@@ -355,7 +431,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   mapContainer: {
-    height: 400, // Tinggi tetap untuk peta
+    height: 350, 
+    padding: 10,
   },
   loader: {
     position: 'absolute',
@@ -371,7 +448,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-     // Sesuaikan dengan tinggi tab navigasi
+    paddingBottom: 70, // Sesuaikan dengan tinggi tab navigasi
   },
   controls: {
     flexDirection: 'row',
@@ -478,7 +555,7 @@ const styles = StyleSheet.create({
     color: '#007AFF',
   },
   bottomPadding: {
-    height: 70, // Tinggi tab navigasi
+    height: 10, // Tinggi tab navigasi
   },
 });
 
