@@ -157,7 +157,7 @@ export default function GPSHP() {
             <Text style={styles.scanButtonText}>Hentikan Streaming</Text>
           </TouchableOpacity>
         </View>
-        <Text>Proses membutuhkan waktu beberapa detik untuk perangkat dapat menerima lokasi.</Text>
+        <Text>Proses membutuhkan waktu beberapa menit untuk perangkat dapat menerima lokasi.</Text>
       </View>
 
       <View style={{ height: 430, marginVertical: 10 }}>

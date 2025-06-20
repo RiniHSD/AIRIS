@@ -1,24 +1,24 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-export default function MetodeSurvey({ navigation }) {
+export default function MetodeSaluran({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Survey Jaringan Irigasi</Text>
+      <Text style={styles.title}>Survey Saluran Irigasi</Text>
         <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('SurveyPage')}
+        onPress={() => navigation.navigate('SurveySaluranGNSS')}
         >
-        <Image source={require('../assets/icons/bangunan.png')} style={{ width: 200, height: 200 }} />
-        <Text style={styles.buttonText}>Survey Bangunan Irigasi</Text>
+        <Image source={require('../assets/icons/presisi.jpeg')} style={{ width: 200, height: 200 }} />
+        <Text style={styles.buttonText}>Menggunakan GNSS Geodetik</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('MetodeSaluran')}
+        onPress={() => navigation.navigate('SurveySaluranHP')}
         >
-        <Image source={require('../assets/icons/saluran.jpeg')} style={{ width: 210, height: 210 }} />
-        <Text style={styles.buttonText}>Survey Saluran Irigasi</Text>
+        <Image source={require('../assets/icons/nonpresisi.jpeg')} style={{ width: 210, height: 210 }} />
+        <Text style={styles.buttonText}>Menggunakan Posisi Internal HandPhone</Text>
       </TouchableOpacity>
     </View>
   );
