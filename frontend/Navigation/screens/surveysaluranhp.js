@@ -15,6 +15,7 @@ import { selectStreamData } from '../config/streamSlice';
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
 import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
 
 const SurveySaluranHP = () => {
   // Gunakan data dari stream INTERNAL (GPS HP)
@@ -32,6 +33,14 @@ const SurveySaluranHP = () => {
   const [duration, setDuration] = useState('00:00:00');
   const [recordingStatus, setRecordingStatus] = useState('Belum mulai');
   const [mapLoaded, setMapLoaded] = useState(false);
+
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({
+      tabBarLabel: 'GPS HP' // Atau 'GPS HP' untuk file surveysaluranhp.js
+    });
+  }, [navigation]);
 
   // Efek untuk mengupdate durasi rekaman
   useEffect(() => {
@@ -165,10 +174,9 @@ const SurveySaluranHP = () => {
       Alert.alert('Tidak ada data', 'Tidak ada data trek yang direkam');
       return;
     }
-
-    // Pastikan koordinat disimpan dalam format yang benar
+  
+    // Format data sebagai GeoJSON
     const coordinates = trackPoints.map(point => [point.lng, point.lat]);
-    
     const geojson = {
       type: 'FeatureCollection',
       features: [
@@ -188,20 +196,34 @@ const SurveySaluranHP = () => {
         }
       ]
     };
-
+  
+    // Nama file
     const fileName = `track_hp_${moment().format('YYYYMMDD_HHmmss')}.geojson`;
-    const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
     
+    // Path file
+    let filePath = '';
+    
+    if (Platform.OS === 'android') {
+      filePath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
+    } else {
+      filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
+    }
+  
     try {
+      // Simpan file
       await RNFS.writeFile(filePath, JSON.stringify(geojson), 'utf8');
       
-      await Share.open({
-        title: 'Unduh Data Trek (HP)',
-        url: `file://${filePath}`,
-        type: 'application/geo+json',
-      });
+      // Tampilkan konfirmasi
+      Alert.alert(
+        'Berhasil Disimpan',
+        `File tersimpan di: ${filePath}`,
+        [
+          { text: 'OK' }
+        ]
+      );
     } catch (error) {
-      Alert.alert('Error', 'Gagal menyimpan file: ' + error.message);
+      console.error('Error menyimpan file:', error);
+      Alert.alert('Error', `Gagal menyimpan file: ${error.message}`);
     }
   };
 
@@ -399,15 +421,19 @@ const SurveySaluranHP = () => {
             <Text style={styles.infoValue}>{distance.toFixed(2)} meter</Text>
           </View>
           
-          <View style={styles.infoRow}>
+          {/* <View style={styles.infoRow}>
             <Text>Jumlah Titik:</Text>
             <Text style={styles.infoValue}>{trackPoints.length}</Text>
-          </View>
+          </View> */}
           
-          <View style={styles.infoRow}>
+          {/* <View style={styles.infoRow}>
             <Text>Sumber:</Text>
             <Text style={styles.infoValue}>GPS Internal HandPhone</Text>
-          </View>
+          </View> */}
+        </View>
+
+        <View style={styles.infoContainer}>
+          <Text style={styles.infoAlert}>Pastikan Anda mengaktifkan fitur streaming koordinat pada halaman GPS Pengukuran Non Presisi</Text>
         </View>
         
         {/* Padding untuk menghindari tab navigasi */}
@@ -447,7 +473,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10,
     backgroundColor: '#fff',
-    marginTop: 10,
   },
   recordButton: {
     backgroundColor: '#4CAF50',
@@ -545,6 +570,10 @@ const styles = StyleSheet.create({
   infoValue: {
     fontWeight: '600',
     color: '#007AFF',
+  },
+  infoAlert: {
+    fontWeight: '600',
+    color: '#FF0000',
   },
   bottomPadding: {
     height: 10,

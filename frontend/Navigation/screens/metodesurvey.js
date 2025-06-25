@@ -4,21 +4,21 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 export default function MetodeSurvey({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Survey Jaringan Irigasi</Text>
-        <TouchableOpacity
+      <Text style={styles.title}>Pilih Jenis Survey</Text>
+      <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('SurveyPage')}
-        >
+      >
         <Image source={require('../assets/icons/bangunan.png')} style={{ width: 200, height: 200 }} />
-        <Text style={styles.buttonText}>Survey Bangunan Irigasi</Text>
-        </TouchableOpacity>
+        <Text style={styles.buttonText}>Survey Bangunan</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity
+      <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('MetodeSaluran')}
-        >
-        <Image source={require('../assets/icons/saluran.jpeg')} style={{ width: 210, height: 210 }} />
-        <Text style={styles.buttonText}>Survey Saluran Irigasi</Text>
+        onPress={() => navigation.navigate('SurveySaluran')}
+      >
+        <Image source={require('../assets/icons/saluran.jpeg')} style={{ width: 200, height: 200 }} />
+        <Text style={styles.buttonText}>Survey Saluran</Text>
       </TouchableOpacity>
     </View>
   );
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: 'bold',
+    marginBottom: 20,
   },
   button: {
     width: '100%',
@@ -43,9 +44,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
     backgroundColor: '#fff',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
   },
   buttonText: {
     color: '#000',
     fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
 });
