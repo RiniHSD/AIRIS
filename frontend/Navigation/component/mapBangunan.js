@@ -224,10 +224,23 @@ const Titiklokasi = ({ route }) => {
               .then(data => {
                 const point = turf.point([${longitude}, ${latitude}]);
                 let minDistance = Infinity;
+                let closestTingkat = 'tidak diketahui'; // Menyimpan tingkat saluran terdekat
 
-                // 1. Hitung jarak minimum
+                //1. Tentukan toleransi berdasarkan tingkat saluran
+                const getTolerance = (tingkat) => {
+                  tingkat = tingkat.toLowerCase();
+                  if (tingkat.includes('primer')) return 5.0;  // Toleransi 5m untuk primer
+                  if (tingkat.includes('sekunder')) return 3.0; // Toleransi 3m untuk sekunder
+                  if (tingkat.includes('tersier')) return 1.5;  // Toleransi 1.5m untuk tersier
+                  return 3.0; // Default toleransi 3m
+                };
+
+                // 2. Hitung jarak minimum dengan menyimpan tingkat saluran
                 data.features.forEach(feature => {
                   try {
+                    const tingkat = feature.properties.tingkat || '';
+                    const tolerance = getTolerance(tingkat);
+
                     if (feature.geometry.type === 'MultiLineString') {
                       feature.geometry.coordinates.forEach(coordsArray => {
                         const cleanCoords = coordsArray.map(coord => [coord[0], coord[1]]);
@@ -235,7 +248,7 @@ const Titiklokasi = ({ route }) => {
                         
                         if (cleanCoords.length >= 2) {
                           const distance = turf.pointToLineDistance(point, line, { units: 'meters' });
-                          if (distance < minDistance) minDistance = distance;
+                          if (distance < minDistance) {minDistance = distance; closestTingkat = tingkat;};
                         }
                       });
                     }
@@ -249,11 +262,13 @@ const Titiklokasi = ({ route }) => {
                   console.warn('No valid LineString features found');
                 }
 
-                const isOnLine = minDistance <= 5;
+                // 3. Validasi dengan toleransi dinamis
+                const tolerance = getTolerance(closestTingkat);
+                const isOnLine = minDistance <= tolerance;
                 
                 const message = isOnLine
-                  ? '✅ Bangunan berada di saluran irigasi (Jarak: ' + minDistance.toFixed(3) + ' m)'
-                  : '❌ Bangunan TIDAK berada di saluran (Jarak: ' + minDistance.toFixed(3) + ' m)';
+                  ? \`✅ Bangunan berada di saluran irigasi (Jarak: \${minDistance.toFixed(2)} m | Toleransi: \${tolerance} m)\`
+                  : '❌ Bangunan TIDAK berada di saluran! (Jarak: ' + minDistance.toFixed(3) + ' m)';
                 
                 showWarning(message);
 
