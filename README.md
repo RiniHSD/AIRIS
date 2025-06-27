@@ -1,8 +1,8 @@
 # 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS)
 
 **AIRIS** adalah aplikasi **Mobile GIS** berbasis **React Native** yang dirancang untuk memetakan jaringan irigasi secara real-time dan akurat. Aplikasi ini terintegrasi dengan perangkat **GNSS Low Cost** dan dikembangkan sebagai bagian dari Proyek Akhir Program Studi Sarjana Terapan Sistem Informasi Geografis Universitas Gadjah Mada.
+<br></br>
 
----
 
 ## 📌 Fitur Utama
 
@@ -13,8 +13,10 @@
 - 🔄 Fitur create, read, update & delete (CRUD) data secara langsung dari lapangan
 - 📡 Dukungan pengambilan data koordinat dengan akurasi sentimeter
 - 📏 Sistem koreksi posisi GNSS secara Real-Time dengan metode RTK NTRIP
+<br></br>
 
----
+
+<br></br>
 
 ## ⚙️ Teknologi
 
@@ -30,8 +32,7 @@
 | Sistem Operasi | Android (min. versi 7.0) |
 
 
----
-
+<br></br>
 
 ## 📋 Persyaratan Sistem
 
@@ -42,6 +43,9 @@
 | Penyimpanan | 500 MB ruang kosong |
 | Konektivitas | Bluetooth 4.0+ |
 | Sensor | GPS, Kamera |
+
+<br></br>
+
 
 ## 🚀 Panduan Instalasi
 ### Frontend
@@ -85,6 +89,8 @@
    ```bash
    nmp start
 
+<br></br>
+
 ## 👷 Pemetaan Bangunan Irigasi
 <p> Foto Pengukuran Lapangan Menggunakan GNSS Geodetik</p>
 <p align="center">
@@ -93,6 +99,7 @@
   <img src="frontend/ss/Bangunan Sadap.jpg" width="200"/>
 </p>
 
+<br></br>
 
 ## Tangkapan Layar Aplikasi AIRIS
 ### Splashscreen, Login, dan Register
@@ -102,6 +109,7 @@
   <img src="frontend/ss/3.jpg" width="200"/>
 </p>
 
+<br></br>
 
 ### Koneksi GNSS
 <p>Metode Pengukuran yaitu GNSS Geodetik dan Posisi Internal Hp</p>
@@ -112,32 +120,46 @@
   <img src="frontend/ss/22.jpg" width="200"/>
 </p>
 
-
-### Halaman Peta
-<p>Lokasi titik bangunan irigasi hasil pengukuran</p>
-<p>Tampilan pop-up titik, pop-up saluran irigasi, legenda, dan berbagai basemap</p>
-<p align="center">
-  <img src="frontend/ss/21.jpg" width="200"/>
-  <img src="frontend/ss/8.jpg" width="200"/>
-  <img src="frontend/ss/9.jpg" width="200"/>
-  <img src="frontend/ss/10.jpg" width="200"/>
-</p>
-
+<br></br>
 
 ### Halaman Survey
-<p>Fitur menambahkan data titik bangunan irigasi</p>
+<p>Jenis pemetaan jaringan irigasi</p>
+<p align="center">
+  <img src="frontend/ss/SurveyScreen.jpg" width="200"/>
+</p>
+
+<p>Pemetaan Bangunan Irigasi</p>
 <p align="center">
   <img src="frontend/ss/11.jpg" width="200"/>
   <img src="frontend/ss/12.jpg" width="200"/>
   <img src="frontend/ss/13.jpg" width="200"/>
 </p>
 
+<p>Pemetaan Saluran Irigasi</p>
+<p align="center">
+  <img src="frontend/ss/SurveySaluran.jpg" width="184"/>
+  <img src="frontend/ss/SurveySaluran1.jpg" width="188"/>
+</p>
+
+<br></br>
+
+### Halaman Peta
+<p>Lokasi titik bangunan irigasi hasil pengukuran</p>
+<p>Tampilan pop-up titik, saluran irigasi, dan legenda</p>
+<p align="center">
+  <img src="frontend/ss/21.jpg" width="200"/>
+  <img src="frontend/ss/8.jpg" width="200"/>
+  <img src="frontend/ss/9.jpg" width="200"/>
+</p>
+
+<br></br>
 
 ### Halaman List
 <p>Daftar bangunan irigasi beserta fitur lihat, edit, dan hapus</p>
 <p align="center">
   <img src="frontend/ss/14.jpg" width="200"/>
   <img src="frontend/ss/19.jpg" width="200"/>
+  <img src="frontend/ss/delete.jpg" width="200"/>
 </p>
 
 
@@ -149,6 +171,7 @@
   <img src="frontend/ss/18.jpg" width="200"/>
 </p>
 
+<br></br>
 
 ### Halaman Pengguna
 <p align="center">
@@ -156,5 +179,3 @@
   <img src="frontend/ss/23.jpg" width="200"/>
   <img src="frontend/ss/24.jpg" width="200"/>
 </p>
-
-
