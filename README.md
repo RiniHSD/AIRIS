@@ -6,13 +6,84 @@
 
 ## 📌 Fitur Utama
 
-- 🔗 Integrasi dengan perangkat GNSS Geodetik Low Cost
-- 🗺️ Peta interaktif jaringan irigasi (primer, sekunder, tersier)
-- 📝 Form survei digital untuk mencatat atribut bangunan irigasi
-- 📷 Dokumentasi foto untuk setiap titik bangunan
-- 🔄 Fitur create, read, update & delete (CRUD) data secara langsung dari lapangan
-- 📡 Dukungan pengambilan data koordinat dengan akurasi sentimeter
-- 📏 Sistem koreksi posisi GNSS secara Real-Time dengan metode RTK NTRIP
+### 🔗 Integrasi GNSS Ganda
+
+- Mendukung dua sumber koordinat:
+  - **GNSS Geodetik Low Cost** (via Bluetooth)
+  - **GNSS Internal Smartphone**
+- Opsi memilih sumber koordinat sesuai kondisi lapangan
+
+
+
+### 🗺️ Peta Interaktif Jaringan Irigasi
+
+- Menampilkan peta jaringan irigasi (saluran primer, sekunder, tersier) secara interaktif
+- Tersedia mode pemetaan:
+  - **Pemetaan Bangunan Irigasi (Titik)**
+  - **Pemetaan Saluran Irigasi (Garis)**
+- Dapat mengimpor data saluran irigasi dalam format **GeoJSON**
+- Tampilan layer berbeda sesuai tingkat saluran
+
+
+
+### ✏️ Pemetaan Bangunan Irigasi (Titik)
+
+- Merekam koordinat titik secara real-time
+- Mencatat atribut lengkap bangunan:
+  - Nama bangunan
+  - Tipe bangunan
+  - Foto dokumentasi
+  - Keterangan teknis lainnya
+- Data hasil survei titik dapat diekspor ke **CSV** lengkap dengan atributnya
+
+
+
+### 📐 Pemetaan Saluran Irigasi (Garis)
+
+- Merekam jalur saluran irigasi sebagai garis (polyline)
+- Pengambilan titik otomatis setiap **5 detik**
+- Sistem menghitung panjang jalur secara real-time
+- Data hasil pemetaan garis dapat diunduh dalam format **GeoJSON**
+
+
+
+### ✅ Validasi Topologi Bangunan Irigasi
+
+- Fitur **Topology Rules** untuk validasi:
+  - **Bangunan irigasi (titik) harus berada di dalam saluran irigasi (garis)**
+- Perhitungan jarak terdekat antara titik dengan garis
+- **Batas toleransi jarak**:
+  - Saluran Primer: ≤ 5 meter
+  - Saluran Sekunder: ≤ 3 meter
+  - Saluran Tersier: ≤ 1.5 meter
+- Menampilkan notifikasi jika titik di luar toleransi
+- Membantu memastikan akurasi spasial survei lapangan
+
+### 📷 Dokumentasi Foto
+- Foto dokumentasi setiap titik bangunan
+- Foto tersimpan bersama atribut data
+
+
+### 🔄 CRUD Data Lapangan
+- Membuat, mengedit, menghapus data survei langsung dari perangkat mobile
+- Update data spasial dan atribut secara real-time
+
+### 📡 RTK NTRIP Support
+- Mendukung koreksi posisi GNSS secara real-time via **RTK NTRIP**
+- Meningkatkan akurasi koordinat hingga level sentimeter
+- Ideal untuk survei presisi tinggi di lapangan
+
+### 💾 Ekspor Data
+- **Bangunan irigasi (titik):** Ekspor ke format CSV
+- **Saluran irigasi (garis):** Ekspor ke format GeoJSON
+- Memudahkan integrasi data ke software GIS lain seperti ArcGIS atau QGIS
+
+
+## 🎯 Manfaat
+- Mempercepat proses pemetaan jaringan irigasi
+- Meningkatkan akurasi data spasial
+- Mengurangi potensi kesalahan dalam inventarisasi aset irigasi
+- Mempermudah monitoring dan pengambilan keputusan bagi instansi terkait
 <br></br>
 
 
