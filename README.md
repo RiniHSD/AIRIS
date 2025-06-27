@@ -77,7 +77,7 @@
 - **Bangunan irigasi (titik):** Ekspor ke format CSV
 - **Saluran irigasi (garis):** Ekspor ke format GeoJSON
 - Memudahkan integrasi data ke software GIS lain seperti ArcGIS atau QGIS
-
+<br></br>
 
 ## 🎯 Manfaat
 - Mempercepat proses pemetaan jaringan irigasi
