@@ -16,8 +16,6 @@
 <br></br>
 
 
-<br></br>
-
 ## ⚙️ Teknologi
 
 | Komponen | Teknologi |
