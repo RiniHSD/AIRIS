@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Linking  } from 'react-native';
 
 export default function FaQ() {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -32,35 +31,50 @@ export default function FaQ() {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const openGuide = () => {
+    Linking.openURL('https://panduan-airismap.vercel.app/');
+  };
+
   return (
     <ScrollView style={styles.container}>
-        <View style={styles.isi}>
-            <Text style={styles.header}>Pertanyaan yang Sering Diajukan</Text> 
-                {faqData.map((item, index) => (
-                    <View key={index} style={styles.accordionItem}>
-                    <TouchableOpacity 
-                        style={styles.questionContainer}
-                        onPress={() => toggleAccordion(index)}
-                    >
-                        <Text style={styles.questionText}>{item.question}</Text>
-                        <Image 
-                        source={
-                            activeIndex === index 
-                            ? require('../assets/icons/up.png') 
-                            : require('../assets/icons/down.png')
-                        }
-                        style={styles.arrowIcon}
-                        />
-                    </TouchableOpacity>
-                    
-                    {activeIndex === index && (
-                        <View style={styles.answerContainer}>
-                        <Text style={styles.answerText}>{item.answer}</Text>
-                        </View>
-                    )}
-                    </View>
-                ))}
-        </View>
+      <View style={styles.isi}>
+        <Text style={styles.header}>Pertanyaan yang Sering Diajukan</Text> 
+          {faqData.map((item, index) => (
+            <View key={index} style={styles.accordionItem}>
+              <TouchableOpacity 
+                style={styles.questionContainer}
+                onPress={() => toggleAccordion(index)}
+              >
+              <Text style={styles.questionText}>{item.question}</Text>
+                <Image 
+                source={
+                    activeIndex === index 
+                    ? require('../assets/icons/up.png') 
+                    : require('../assets/icons/down.png')
+                }
+                style={styles.arrowIcon}
+                />
+              </TouchableOpacity>
+                      
+              {activeIndex === index && (
+                <View style={styles.answerContainer}>
+                <Text style={styles.answerText}>{item.answer}</Text>
+                </View>
+              )}
+            </View>
+          ))}
+
+          <TouchableOpacity 
+            style={styles.guideButton}
+            onPress={openGuide}
+          >
+            <Image 
+              source={require('../assets/icons/guide.png')} 
+              style={styles.guideIcon}
+            />
+            <Text style={styles.guideText}>Panduan Lengkap Aplikasi</Text>
+          </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -125,5 +139,31 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     marginLeft: 10,
+  },
+  guideButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0daaf0',
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 20,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  guideIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
+    tintColor: '#fff',
+  },
+  guideText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

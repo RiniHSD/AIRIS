@@ -40,7 +40,7 @@ export default function Login({ navigation, onLogin }) {
     return (
     <View style={styles.container}>
         <Image source={require('../assets/icons/Icon.png')} style={styles.logo} />
-        <Text style={styles.title}>AIRIS APP</Text>
+        <Text style={styles.title}>AIRISMAP</Text>
 
     <View style={styles.formContainer}>
         <Text>Email</Text>

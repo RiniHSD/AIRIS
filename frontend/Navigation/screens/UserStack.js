@@ -5,7 +5,7 @@ import FaQ from './FaQ';
 
 const Stack = createNativeStackNavigator();
 
-export default function UserStack() {
+export default function UserStack({ onLogout }) {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true,headerStyle: {
         backgroundColor: '#0daaf0'
@@ -16,7 +16,9 @@ export default function UserStack() {
       },
       headerTitleAlign: 'center',
       }}>
-      <Stack.Screen name="AccountPage" component={AccountPage} options={{ title: 'PROFIL PENGGUNA' }} />
+      <Stack.Screen name="PROFIL PENGGUNA">
+        {(props) => <AccountPage {...props} onLogout={onLogout} />}
+      </Stack.Screen>
       <Stack.Screen name="FaQ" component={FaQ} options={{ title: 'PETUNJUK APLIKASI' }} />
     </Stack.Navigator>
   );

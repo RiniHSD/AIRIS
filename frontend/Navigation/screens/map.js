@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   containerMap: {
-    height: 680,
+    height: 650,
     width: '95%',
     borderWidth: 1,
     borderColor: '#ddd',
