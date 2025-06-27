@@ -243,6 +243,7 @@
 <br></br>
 
 ### Halaman Pengguna
+<p>Halaman Profil Pengguna dan Petunjuk Penggunaan Aplikasi </p>
 <p align="center">
   <img src="frontend/ss/20.jpg" width="200"/>
   <img src="frontend/ss/23.jpg" width="200"/>
