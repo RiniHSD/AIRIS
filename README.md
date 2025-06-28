@@ -156,7 +156,7 @@
 
 4. Jalankan server
    ```bash
-   nmp start
+   npm start
 
 <br></br>
 
