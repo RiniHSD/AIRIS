@@ -1,6 +1,6 @@
-# 🛰️ AIRIS (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS)
+# 🛰️ AIRISMAP (Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS)
 
-**AIRIS** adalah aplikasi **Mobile GIS** berbasis **React Native** yang dirancang untuk memetakan jaringan irigasi secara real-time dan akurat. Aplikasi ini terintegrasi dengan perangkat **GNSS Low Cost** dan dikembangkan sebagai bagian dari Proyek Akhir Program Studi Sarjana Terapan Sistem Informasi Geografis Universitas Gadjah Mada.
+**AIRISMAP** adalah aplikasi **Mobile GIS** berbasis **React Native** yang dirancang untuk memetakan jaringan irigasi secara real-time dan akurat. Aplikasi ini terintegrasi dengan perangkat **GNSS Low Cost** dan dikembangkan sebagai bagian dari Proyek Akhir Program Studi Sarjana Terapan Sistem Informasi Geografis Universitas Gadjah Mada.
 <br></br>
 
 
@@ -120,8 +120,8 @@
 ### Frontend
 1. Clone repositori ini:
    ```bash
-   git clone https://github.com/RiniHSD/AIRIS.git
-   cd AIRIS/frontend
+   git clone https://github.com/RiniHSD/AIRISMAP.git
+   cd AIRISMAP/frontend
 
 2. Install semua dependensi:
    ```bash
