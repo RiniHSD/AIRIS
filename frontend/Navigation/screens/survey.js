@@ -19,7 +19,7 @@ import { selectStreamData } from '../config/streamSlice';
 import { Picker } from '@react-native-picker/picker';
 import CustomPicker from '../assets/CustomPicker';
 import BASE_URL from '../config/url';
-
+import LOCAL_URL from '../config/localhost';
 
 const CustomRadioButton = ({ label, selected, onSelect }) => (
   <TouchableOpacity
@@ -207,6 +207,7 @@ export default function SurveyPage() {
       luassawah: '',
       luaskolam: '',
       luaskebun: '',
+      debit: '',
     }
   ]);
   
@@ -221,6 +222,7 @@ export default function SurveyPage() {
       luassawah: '',
       luaskolam: '',
       luaskebun: '',
+      debit: '',
     }]);
   };
 
@@ -264,6 +266,16 @@ export default function SurveyPage() {
                 <Picker.Item key={item} label={item} value={item} />
               ))}
             </CustomPicker>
+
+            <Text style={styles.label}>Debit Air (lt/dt)</Text>
+            <TextInput
+              style={styles.input}
+              value={saluran.debit}
+              keyboardType="numeric"
+              onChangeText={(v) => updateSaluranBagi(index, 'debit', v)}
+              placeholder="Contoh: 15.10"
+              placeholderTextColor="#999"
+            />
 
             <Text style={styles.label}>Luas Oncoran (Ha)</Text>
             <TextInput
@@ -814,17 +826,18 @@ export default function SurveyPage() {
           />
         </View>
 
-        {/* <View style={styles.formGroup}>
-          <Text style={styles.label}>Bahan Bangunan</Text>
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>Debit Air (lt/dt)</Text>
             <TextInput
               style={styles.input}
-              placeholder="Contoh: beton, kayu, dll"
+              placeholder="Contoh: 15.10"
               placeholderTextColor="#999"
+              keyboardType="numeric"
               value={form.bahan}
               backgroundColor="white"
               onChangeText={v => setForm({ ...form, bahan: v })}
             />
-        </View> */}
+        </View>
 
         <View style={styles.formGroup}>
           <Text style={styles.label}>Lokasi Bangunan</Text>
@@ -930,6 +943,9 @@ export default function SurveyPage() {
             <TouchableOpacity onPress={() => handleImagePick('foto')} style={styles.imageUpload}>
               {renderImage(form.foto)}
             </TouchableOpacity>
+          </View>
+          <View>
+            <Text>Sebaiknya foto memiliki ukuran kurang dari 1 MB</Text>
           </View>
         </View>
 

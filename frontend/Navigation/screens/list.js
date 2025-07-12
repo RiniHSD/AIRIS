@@ -5,6 +5,7 @@ import LOCAL_URL from '../config/localhost';
 import { useNavigation } from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function ListPage() {
@@ -20,9 +21,11 @@ export default function ListPage() {
   useEffect(() => {
     const fetchBangunan = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/auth/bangunan`);
+        const userId = await AsyncStorage.getItem('userId');
+
+        const res = await fetch(`${BASE_URL}/auth/bangunan?id_user=${userId}`);
         const data = await res.json();
-        setBangunan(data.features.map((f) => f.properties)); // karena getBangunanIrigasi return FeatureCollection
+        setBangunan(data.features.map((f) => f.properties));
       } catch (err) {
         console.error('Gagal memuat data bangunan:', err.message);
       } finally {

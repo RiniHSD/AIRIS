@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BASE_URL from '../config/url';
@@ -47,79 +47,82 @@ export default function Register({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={require('../assets/icons/Icon.png')} style={styles.logo} />
-      <Text style={styles.title}>AIRISMAP</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <Image source={require('../assets/icons/Icon.png')} style={styles.logo} />
+        <Text style={styles.title}>AIRISMAP</Text>
 
-      <View style={styles.formContainer}>
-        <Text>Nama Lengkap</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Masukkan Nama Lengkap"
-          placeholderTextColor="#a6a8ab"
-          value={name}
-          onChangeText={setName}
-        />
+        <View style={styles.formContainer}>
+          <Text>Nama Lengkap</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Masukkan Nama Lengkap"
+            placeholderTextColor="#a6a8ab"
+            value={name}
+            onChangeText={setName}
+          />
 
-        <Text>Email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Masukkan Email"
-          placeholderTextColor="#a6a8ab"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+          <Text>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Masukkan Email"
+            placeholderTextColor="#a6a8ab"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
 
-        <Text>No Telp</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Masukkan No Telp"
-          keyboardType="phone-pad"
-          placeholderTextColor="#a6a8ab"
-          value={telp}
-          onChangeText={setTelp}
-        />
+          <Text>No Telp</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Masukkan No Telp"
+            keyboardType="phone-pad"
+            placeholderTextColor="#a6a8ab"
+            value={telp}
+            onChangeText={setTelp}
+          />
 
-        <Text>Kata Sandi</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Masukkan Kata Sandi"
-          secureTextEntry
-          placeholderTextColor="#a6a8ab"
-          value={password}
-          onChangeText={setPassword}
-        />
+          <Text>Kata Sandi</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Masukkan Kata Sandi"
+            secureTextEntry
+            placeholderTextColor="#a6a8ab"
+            value={password}
+            onChangeText={setPassword}
+          />
 
-        <Text>Ulangi Kata Sandi</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Ulangi Kata Sandi"
-          secureTextEntry
-          placeholderTextColor="#a6a8ab"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-        />
+          <Text>Ulangi Kata Sandi</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Ulangi Kata Sandi"
+            secureTextEntry
+            placeholderTextColor="#a6a8ab"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
 
-        <Text>Nama Daerah Irigasi</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Contoh: Van Der Wijck"
-          placeholderTextColor="#a6a8ab"
-          value={namaIrigasi}
-          onChangeText={setNamaIrigasi}
-        />
+          <Text>Nama Daerah Irigasi</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Contoh: Van Der Wijck"
+            placeholderTextColor="#a6a8ab"
+            value={namaIrigasi}
+            onChangeText={setNamaIrigasi}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+          <Text style={styles.buttonText}>DAFTAR</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.link}>Sudah punya akun? Masuk</Text>
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>DAFTAR</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.link}>Sudah punya akun? Masuk</Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
+    
   );
 }
 

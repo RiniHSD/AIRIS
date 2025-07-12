@@ -1,65 +1,67 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import MetodeSurvey from './metodesurvey';
+import SurveyPage from './survey';
+import SurveySaluranGNSS from './surveysaluran';
+import SurveySaluranHP from './surveysaluranhp';
 
-export default function MetodeSurvey({ navigation }) {
+const Stack = createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
+
+function SurveySaluranTabs() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Pilih Jenis Survey</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('SurveyPage')}
-      >
-        <Image source={require('../assets/icons/bangunan.png')} style={{ width: 200, height: 200 }} />
-        <Text style={styles.buttonText}>Survey Bangunan</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('SurveySaluran')}
-      >
-        <Image source={require('../assets/icons/saluran.jpeg')} style={{ width: 200, height: 200 }} />
-        <Text style={styles.buttonText}>Survey Saluran</Text>
-      </TouchableOpacity>
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelStyle: { 
+          fontSize: 12,
+          fontWeight: 'bold'
+        },
+        tabBarIndicatorStyle: { 
+          backgroundColor: '#0daaf0' 
+        },
+        tabBarStyle: { 
+          backgroundColor: '#fff' 
+        }
+      }}
+    >
+      <Tab.Screen 
+        name="SurveySaluranGNSS" 
+        component={SurveySaluranGNSS} 
+        options={{ tabBarLabel: 'GPS Geodetik' }} 
+      />
+      <Tab.Screen 
+        name="SurveySaluranHP" 
+        component={SurveySaluranHP} 
+        options={{ tabBarLabel: 'GPS HP' }} 
+      />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#ebf4fa',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  button: {
-    width: '100%',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginVertical: 10,
-    backgroundColor: '#fff',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
-  },
-  buttonText: {
-    color: '#000',
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-});
+export default function SurveyStack() {
+  return (
+    <Stack.Navigator 
+      screenOptions={{ 
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: '#0daaf0'
+        }, 
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          color: '#fff'
+        },
+        headerTitleAlign: 'center',
+      }}
+    >
+      <Stack.Screen name="MetodeSurvey" component={MetodeSurvey} options={{ title: 'SURVEY' }} />
+      <Stack.Screen name="SurveyPage" component={SurveyPage} options={{ title: 'SURVEY BANGUNAN' }} />
+      <Stack.Screen 
+        name="SurveySaluran" 
+        component={SurveySaluranTabs} 
+        options={{ title: 'SURVEY SALURAN' }} 
+      />
+    </Stack.Navigator>
+  );
+}

@@ -83,7 +83,7 @@ export default function AccountPage({ navigation, onLogout  }) {
       <View style={styles.box}>
         <Text style={styles.subheading}>Tentang Aplikasi</Text>
         <Text style={styles.description}>
-          AIRIS merupakan aplikasi Mobile GIS yang dirancang untuk membantu proses pemetaan jaringan irigasi secara
+          AIRISMAP merupakan aplikasi Mobile GIS yang dirancang untuk membantu proses pemetaan jaringan irigasi secara
           praktis, efisien, dan mudah digunakan berbagai pihak.
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate('FaQ')}>
@@ -92,7 +92,7 @@ export default function AccountPage({ navigation, onLogout  }) {
       </View>
 
       <View style={styles.box}>
-        <Text style={styles.subheading1}>AIRIS APPS</Text>
+        <Text style={styles.subheading1}>AIRISMAP</Text>
 
         <Text style={styles.description}>
          🛰️ Aplikasi Pemetaan dan Inventarisasi Jaringan Irigasi Berbasis Mobile GIS.

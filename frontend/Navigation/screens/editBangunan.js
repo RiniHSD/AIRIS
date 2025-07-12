@@ -19,6 +19,7 @@ import LOCAL_URL from '../config/localhost';
 import { Picker } from '@react-native-picker/picker';
 import * as ImagePicker from 'react-native-image-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
 
 const CustomRadioButton = ({ label, selected, onSelect }) => (
   <TouchableOpacity
@@ -127,6 +128,7 @@ export default function EditBangunan() {
       luassawah: '',
       luaskolam: '',
       luaskebun: '',
+      debit : '',
     }
   ]);
 
@@ -153,6 +155,7 @@ export default function EditBangunan() {
       luassawah: '',
       luaskolam: '',
       luaskebun: '',
+      debit: '',
     }]);
   };
 
@@ -194,6 +197,14 @@ export default function EditBangunan() {
                 <Picker.Item key={item} label={item} value={item} />
               ))}
             </CustomPicker>
+
+            <Text style={styles.label}>Debit Air (lt/dt)</Text>
+            <TextInput
+              style={styles.input}
+              value={saluran.debit}
+              keyboardType="numeric"
+              onChangeText={(v) => updateSaluranBagi(index, 'debit', v)}
+            />
 
             <Text style={styles.label}>Luas Oncoran (Ha)</Text>
             <TextInput
@@ -305,33 +316,37 @@ export default function EditBangunan() {
 
   const handleSave = async () => {
     try {
+      // Buat objek request
+      const requestData = {
+        nama: form.nama,
+        jenis: cleanedJenis,
+        fungsi: form.fungsi,
+        bahan: form.bahan,
+        kondisi: form.kondisi,
+        lokasi: finalLokasi,
+        jeniskebutuhan: kebutuhan,
+        luassawah: form.luassawah,
+        luaskebun: form.luaskebun,
+        luaskolam: form.luaskolam,
+        luasoncoran: form.luasoncoran,
+        keterangantambahan: form.keterangantambahan,
+        foto: form.foto,
+      };
+  
+      // Tambahkan data saluran bagi jika diperlukan
+      if (isBangunanBagi) {
+        requestData.saluranBagi = saluranBagi;
+      }
+  
       const res = await fetch(`${BASE_URL}/auth/bangunan/${bangunan.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nama: form.nama,
-          jenis: cleanedJenis,
-          fungsi: form.fungsi,
-          bahan: form.bahan,
-          kondisi: form.kondisi,
-          lokasi: finalLokasi,
-          jeniskebutuhan: kebutuhan,
-          luassawah: form.luassawah,
-          luaskebun: form.luaskebun,
-          luaskolam: form.luaskolam,
-          luasoncoran: form.luasoncoran,
-          keterangantambahan: form.keterangantambahan,
-          foto: form.foto,
-        }),
+        body: JSON.stringify(requestData),
       });
-
-      if (isBangunanBagi) {
-        data.saluranBagi = saluranBagi;
-      }
-
+  
       const result = await res.json();
       if (!res.ok) throw new Error(result.error || 'Gagal memperbarui data');
-
+  
       Alert.alert('Sukses', 'Data berhasil diperbarui', [
         { text: 'OK', onPress: () => navigation.goBack() },
       ]);
@@ -340,39 +355,88 @@ export default function EditBangunan() {
     }
   };
 
-  const handlePickImage = () => {
-    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, async (response) => {
-      if (response.didCancel || !response.assets || response.assets.length === 0) return;
-
-      const photo = response.assets[0];
-      setIsUploading(true);
-
-      const formData = new FormData();
-      formData.append('photo', {
-        uri: photo.uri,
-        name: photo.fileName,
-        type: photo.type,
+  const handlePickImage = async () => {
+    try {
+      const result = await new Promise((resolve) => {
+        ImagePicker.launchImageLibrary({ mediaType: 'photo' }, resolve);
       });
-
+  
+      if (result.didCancel || !result.assets || result.assets.length === 0) return;
+  
+      const photo = result.assets[0];
+      setIsUploading(true);
+  
       try {
-        const res = await fetch(`${BASE_URL}/auth/upload`, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-
-        const result = await res.json();
-        if (!res.ok) throw new Error(result.error || 'Upload gagal');
-
-        setForm((prev) => ({ ...prev, foto: result.fileUrl }));
+        const fileUrl = await uploadImageToServer(photo.uri);
+        setForm((prev) => ({ ...prev, foto: fileUrl }));
       } catch (err) {
         Alert.alert('Upload Error', err.message);
       } finally {
         setIsUploading(false);
       }
-    });
+    } catch (err) {
+      Alert.alert('Error', 'Gagal memilih gambar');
+    }
+  };
+
+  const uploadImageToServer = async (uri) => {
+    setIsUploading(true);
+  
+    try {
+      // Dapatkan info ukuran file
+      const fileInfo = await RNFS.stat(uri);
+      
+      // Batasi ukuran maksimal 5MB
+      const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+      if (fileInfo.size > MAX_SIZE) {
+        Alert.alert(
+          'File Terlalu Besar',
+          'Ukuran file melebihi 5MB. Silakan pilih foto yang lebih kecil.'
+        );
+        return;
+      }
+
+      
+  
+      const filename = uri.split('/').pop();
+      const match = /\.(\w+)$/.exec(filename);
+      const type = match ? `image/${match[1]}` : `image/jpeg`;
+  
+      const formData = new FormData();
+      formData.append('photo', {
+        uri: uri,
+        name: filename,
+        type,
+      });
+  
+      const res = await fetch(`${BASE_URL}/auth/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      const responseText = await res.text();
+      let json;
+  
+      try {
+        json = JSON.parse(responseText);
+      } catch (e) {
+        if (res.ok && responseText.startsWith('http')) {
+          return responseText.trim();
+        }
+        throw new Error(`Server response not JSON: ${responseText.substring(0, 50)}`);
+      }
+  
+      if (!res.ok) {
+        throw new Error(json.error || json.message || `Upload failed with status ${res.status}`);
+      }
+  
+      return json.fileUrl;
+    } catch (err) {
+      console.error('Upload error:', err);
+      throw err;
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -411,10 +475,10 @@ export default function EditBangunan() {
         <TextInput value={form.fungsi} onChangeText={(text) => setForm({ ...form, fungsi: text })} style={styles.input} />
       </View>
       
-      {/* <View style={styles.formGroup}>
-        <Text>Bahan</Text>
-        <TextInput value={form.bahan} onChangeText={(text) => setForm({ ...form, bahan: text })} style={styles.input} />
-      </View> */}
+      <View style={styles.formGroup}>
+        <Text style={styles.label}>Debit Air (Lt/dt)</Text>
+        <TextInput value={form.bahan} onChangeText={(text) => setForm({ ...form, bahan: text })} style={styles.input} keyboardType="numeric" />
+      </View>
 
       <View style={styles.formGroup}>
         <Text style={styles.label}>Lokasi</Text>
@@ -498,14 +562,15 @@ export default function EditBangunan() {
         <Text style={styles.label}>Foto Bangunan</Text>
         {isUploading ? (
           <ActivityIndicator size="large" color="#007AFF" />
+        ) : form.foto ? (
+          <Image source={{ uri: form.foto }} style={{ width: '100%', height: 200, marginBottom: 12 }} />
         ) : (
-          form.foto ? (
-            <Image source={{ uri: form.foto }} style={{ width: '100%', height: 200, marginBottom: 12 }} />
-          ) : (
-            <Text style={{ color: '#888' }}>Belum ada foto</Text>
-          )
+          <Text style={{ color: '#888' }}>Belum ada foto</Text>
         )}
-        <TouchableOpacity onPress={handlePickImage} style={{ backgroundColor: '#4CAF50', padding: 10, alignItems: 'center', borderRadius: 6, marginTop: 10 }}>
+        <TouchableOpacity 
+          onPress={handlePickImage} 
+          style={{ backgroundColor: '#4CAF50', padding: 10, alignItems: 'center', borderRadius: 6, marginTop: 10 }}
+        >
           <Text style={{ color: 'white', fontWeight: 'bold' }}>GANTI FOTO</Text>
         </TouchableOpacity>
       </View>
