@@ -93,7 +93,7 @@
 |----------|-----------|
 | Framework | React Native |
 | Bahasa Pemrograman | JavaScript |
-| Basis Data | PostgreSQL + PostGIS |
+| Basis Data | PostgreSQL - Supabase |
 | Pemetaan | LeafletJS |
 | Perangkat GNSS | TGS EQ1 Receiver |
 | API Test | Postman |
@@ -109,7 +109,7 @@
 |----------|---------------------|
 | Sistem Operasi | Android 7.0 (Nougat) ke atas |
 | RAM | 2 GB |
-| Penyimpanan | 500 MB ruang kosong |
+| Penyimpanan | 100 MB ruang kosong |
 | Konektivitas | Bluetooth 4.0+ |
 | Sensor | GPS, Kamera |
 
